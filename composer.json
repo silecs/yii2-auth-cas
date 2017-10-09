@@ -1,0 +1,23 @@
+{
+    "name": "silecs/yii2-auth-cas",
+    "description": "CAS authentication for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii", "authentication", "CAS"],
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0",
+        "jasig/phpcas": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "silecs\\yii2auth\\cas\\" : "src"
+        }
+    },
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "François Gannaz",
+            "email": "francois.gannaz@silecs.info"
+        }
+    ]
+}
