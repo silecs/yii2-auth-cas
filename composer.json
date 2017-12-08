@@ -2,7 +2,7 @@
     "name": "silecs/yii2-auth-cas",
     "description": "CAS authentication for Yii2",
     "type": "yii2-extension",
-    "keywords": ["yii", "authentication", "CAS"],
+    "keywords": ["yii", "yii2", "authentication", "CAS"],
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.0",
