@@ -40,7 +40,6 @@ class CasService extends \yii\base\Object
         // Init the phpCAS singleton
         phpCAS::setDebug(Yii::getAlias(self::LOGPATH));
         phpCAS::client(CAS_VERSION_2_0, $this->host, (int) $this->port, $this->path);
-        phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 6);
         if ($this->certfile) {
             phpCAS::setCasServerCACert($this->certfile);
         } else if ($this->certfile === false) {
