@@ -15,7 +15,7 @@ use yii\helpers\Url;
  *
  * @author François Gannaz <francois.gannaz@silecs.info>
  */
-class CasService extends \yii\base\Object
+class CasService extends \yii\base\BaseObject
 {
     const LOGPATH = '@runtime/logs/cas.log';
 
