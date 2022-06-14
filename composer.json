@@ -6,7 +6,7 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.38",
-        "jasig/phpcas": "^1.3"
+        "jasig/phpcas": "^1.5"
     },
     "autoload": {
         "psr-4": {
