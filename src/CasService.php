@@ -30,6 +30,11 @@ class CasService extends \yii\base\BaseObject
      */
     public $certfile;
 
+    /**
+     * @var ?object PSR-3 Logger
+     */
+    public $logger;
+
     public function init()
     {
         if (!isset($this->host, $this->port, $this->path)) {
@@ -38,11 +43,13 @@ class CasService extends \yii\base\BaseObject
         // Force a Yii session to open to prevent phpCas from doing it on its own
         Yii::$app->session->open();
         // Init the phpCAS singleton
-        phpCAS::setDebug(Yii::getAlias(self::LOGPATH));
         phpCAS::client(CAS_VERSION_2_0, $this->host, (int) $this->port, $this->path);
+        if ($this->logger) {
+            phpCAS::setLogger($this->logger);
+        }
         if ($this->certfile) {
             phpCAS::setCasServerCACert($this->certfile);
-        } else if ($this->certfile === false) {
+        } else {
             phpCAS::setNoCasServerValidation();
         }
     }
