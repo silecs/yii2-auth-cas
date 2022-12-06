@@ -4,8 +4,7 @@
     "type": "yii2-extension",
     "keywords": ["yii", "yii2", "authentication", "CAS"],
     "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.38",
+        "php": "^7.4.0",
         "jasig/phpcas": "^1.5"
     },
     "autoload": {
@@ -19,5 +18,10 @@
             "name": "François Gannaz",
             "email": "francois.gannaz@silecs.info"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
 }

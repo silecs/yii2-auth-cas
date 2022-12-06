@@ -19,14 +19,14 @@ class CasService extends \yii\base\BaseObject
 {
     const LOGPATH = '@runtime/logs/cas.log';
 
-    public $host;
-    public $port;
-    public $path;
+    public string $host = '';
+    public int $port = 443;
+    public string $path = '';
+    public string $returnUrl = '';
 
     /**
-     *
-     * @var string|boolean If defined, local path to a SSL certificate file,
-     *                     or false to disable the certificate validation.
+     * @var string If defined, local path to a SSL certificate file,
+     *    or '' to disable the certificate validation.
      */
     public $certfile;
 
@@ -37,17 +37,19 @@ class CasService extends \yii\base\BaseObject
 
     public function init()
     {
-        if (!isset($this->host, $this->port, $this->path)) {
+        if (!$this->host || !$this->port) {
             throw new \Exception("Incomplete CAS config. Required: host, port, path.");
         }
+        $returnUrl = $this->returnUrl ?: Url::current([], true);
         // Force a Yii session to open to prevent phpCas from doing it on its own
         Yii::$app->session->open();
         // Init the phpCAS singleton
-        phpCAS::client(CAS_VERSION_2_0, $this->host, (int) $this->port, $this->path);
+        phpCAS::client(CAS_VERSION_2_0, $this->host, (int) $this->port, $this->path, $returnUrl);
+
         if ($this->logger) {
             phpCAS::setLogger($this->logger);
         }
-        if ($this->certfile) {
+        if ($this->certfile !== '') {
             phpCAS::setCasServerCACert($this->certfile);
         } else {
             phpCAS::setNoCasServerValidation();
@@ -56,10 +58,8 @@ class CasService extends \yii\base\BaseObject
 
     /**
      * Try to authenticate the current user.
-     *
-     * @return boolean
      */
-    public function forceAuthentication()
+    public function forceAuthentication(): bool
     {
         phpCAS::setFixedServiceURL(Url::current([], true));
         return phpCAS::forceAuthentication();
@@ -67,20 +67,16 @@ class CasService extends \yii\base\BaseObject
 
     /**
      * Check if the current user is already authenticated.
-     *
-     * @return boolean
      */
-    public function checkAuthentication()
+    public function checkAuthentication(): bool
     {
         return phpCAS::checkAuthentication();
     }
 
     /**
      * Logout on the CAS server. The user is then redirected to $url.
-     *
-     * @param string $url
      */
-    public function logout($url)
+    public function logout(string $url): void
     {
         if (phpCAS::isAuthenticated()) {
             phpCAS::logout(['service' => $url]);
@@ -89,16 +85,13 @@ class CasService extends \yii\base\BaseObject
 
     /**
      * Return the username if authenticated by CAS, else the empty string.
-     *
-     * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         if (phpCAS::isAuthenticated()) {
             return phpCAS::getUser();
-        } else {
-            return "";
         }
+        return "";
     }
 
     /**
@@ -107,9 +100,8 @@ class CasService extends \yii\base\BaseObject
      * @param boolean $debug
      * @return $this
      */
-    public function setDebug($debug = true)
+    public function setDebug(bool $debug = true): void
     {
         phpCAS::setVerbose($debug);
-        return $this;
     }
 }
