@@ -23,10 +23,7 @@ class CasModule extends \yii\base\Module
      */
     public $controllerNamespace = 'silecs\yii2auth\cas\controllers';
 
-    /**
-     * @var CasService
-     */
-    protected $casService;
+    protected CasService $casService;
 
     public function init()
     {
@@ -34,7 +31,7 @@ class CasModule extends \yii\base\Module
         $this->casService = new CasService($this->config);
     }
 
-    public function getCasService()
+    public function getCasService(): CasService
     {
         return $this->casService;
     }
