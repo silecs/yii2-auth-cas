@@ -4,7 +4,7 @@
     "type": "yii2-extension",
     "keywords": ["yii", "yii2", "authentication", "CAS"],
     "require": {
-        "php": "^7.4.0",
+        "php": ">=7.4.0",
         "jasig/phpcas": "^1.5"
     },
     "autoload": {
