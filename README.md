@@ -2,7 +2,7 @@ yii2-auth-cas
 =============
 
 Yii2 library for authentication by CAS,
-using the library [phpCAS](https://wiki.jasig.org/display/CASC/phpCAS).
+using the library [phpCAS](https://github.com/apereo/phpCAS).
 
 Usage
 -----
