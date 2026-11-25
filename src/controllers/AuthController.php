@@ -22,7 +22,9 @@ class AuthController extends \yii\web\Controller
 {
     public function actionLogin()
     {
-        $this->module->casService->forceAuthentication();
+        if (!$this->module->casService->forceAuthentication()) {
+            return ""; // casService added a redirection header
+        }
         $username = $this->module->casService->getUsername();
         if ($username) {
             $userClass = Yii::$app->user->identityClass;
