@@ -40,7 +40,11 @@ class CasService extends \yii\base\BaseObject
         if (!$this->host || !$this->port) {
             throw new \Exception("Incomplete CAS config. Required: host, port, path.");
         }
-        $returnUrl = $this->returnUrl ?: Url::current([], true);
+        try {
+            $returnUrl = $this->returnUrl ?: Url::current([], true);
+        } catch (\Throwable) {
+            $returnUrl = "/";
+        }
         // Force a Yii session to open to prevent phpCas from doing it on its own
         Yii::$app->session->open();
         // Init the phpCAS singleton
